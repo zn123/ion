@@ -52,10 +52,16 @@ type RTPForwarder struct {
 	KcpSalt string `mapstructure:"kcpsalt"`
 }
 
+type RTPWriter struct {
+	On     bool   `mapstructure:"on"`
+	OutDir string `mapstructure:"outdir"`
+}
+
 type plugins struct {
 	On           bool         `mapstructure:"on"`
 	JitterBuffer JitterBuffer `mapstructure:"jitterbuffer"`
 	RTPForwarder RTPForwarder `mapstructure:"rtpforwarder"`
+	RTPWriter    RTPWriter    `mapstructure:"rtpwriter"`
 }
 
 type log struct {

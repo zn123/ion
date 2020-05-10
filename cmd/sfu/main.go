@@ -54,6 +54,10 @@ func init() {
 			KcpKey:  conf.Plugins.RTPForwarder.KcpKey,
 			KcpSalt: conf.Plugins.RTPForwarder.KcpSalt,
 		},
+		RTPWriter: plugins.RTPForwarderConfig{
+			On:     conf.Plugins.RTPForwarder.On,
+			OutDir: conf.Plugins.RTPForwarder.OutDir,
+		},
 	}
 
 	if err := rtc.CheckPlugins(pluginConfig); err != nil {

@@ -24,6 +24,7 @@ type Plugin interface {
 const (
 	TypeJitterBuffer = "JitterBuffer"
 	TypeRTPForwarder = "RTPForwarder"
+	TypeRTPWriter    = "RTPWriter"
 
 	maxSize = 100
 )
@@ -32,6 +33,7 @@ type Config struct {
 	On           bool
 	JitterBuffer JitterBufferConfig
 	RTPForwarder RTPForwarderConfig
+	RTPWriter    RTPWriterConfig
 }
 
 type PluginChain struct {
@@ -71,8 +73,11 @@ func CheckPlugins(config Config) error {
 		oneOn = true
 	}
 
-	//check second plugin
 	if config.RTPForwarder.On {
+		oneOn = true
+	}
+
+	if config.RTPWriter.On {
 		oneOn = true
 	}
 
@@ -99,6 +104,12 @@ func (p *PluginChain) Init(config Config) error {
 		log.Infof("PluginChain.Init config.RTPForwarder.On=true config=%v", config.RTPForwarder)
 		config.RTPForwarder.ID = TypeRTPForwarder
 		p.AddPlugin(TypeRTPForwarder, NewRTPForwarder(config.RTPForwarder))
+	}
+
+	if config.RTPWriter.On {
+		log.Infof("PluginChain.Init config.RTPWriter.On=true config=%v", config.RTPWriter)
+		config.RTPWriter.ID = TypeRTPWriter
+		p.AddPlugin(TypeRTPWriter, NewRTPWriter(config.RTPWriter))
 	}
 
 	// forward packets along plugin chain

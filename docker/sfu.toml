@@ -30,6 +30,11 @@ kcpkey = ""
 # kcp salt
 kcpsalt = ""
 
+[plugins.rtpwriter]
+on = false
+# output directory
+outdir = ""
+
 [webrtc]
 # Range of ports that ion accepts WebRTC traffic on
 portrange = [5000, 5200]
